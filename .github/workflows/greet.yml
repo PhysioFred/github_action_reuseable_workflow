@@ -1,0 +1,14 @@
+name: Greet Someone
+
+# This workflow runs on push events
+on:
+  push:
+    branches:
+      - feature/initial_upload
+      - main
+
+jobs:
+  call-greet:
+    uses: ./.github/workflows/reusable-greet.yml
+    with:
+      person-name: Fred
