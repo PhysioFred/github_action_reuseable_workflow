@@ -11,4 +11,4 @@ jobs:
   call-greet:
     uses: ./.github/workflows/reusable-greet.yml
     with:
-      person-name: Fred
+      person-name: Greg
