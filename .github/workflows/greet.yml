@@ -1,6 +1,5 @@
 name: Greet Someone
 
-# This workflow runs on push events
 on:
   push:
     branches:
@@ -11,4 +10,6 @@ jobs:
   call-greet:
     uses: ./.github/workflows/reusable-greet.yml
     with:
-      person-name: Greg
+      person-name: Fred
+    secrets:
+      greeting-key: ${{ secrets.GREETING_KEY }}
