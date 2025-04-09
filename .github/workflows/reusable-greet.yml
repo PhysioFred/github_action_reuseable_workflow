@@ -1,19 +1,31 @@
 name: Reusable Greeting Workflow
 
-# This tells GitHub that this workflow can be called by other workflows
 on:
   workflow_call:
     inputs:
       person-name:
         description: 'The name of the person to greet'
-        required: true  # This input must be provided by the caller
-        type: string    # The input is a string
+        required: true
+        type: string
+    secrets:
+      greeting-key:
+        description: 'Secret key to unlock a special greeting'
+        required: true
 
 jobs:
   greet:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Print the greeting message
-      - name: Print Greeting
+      # Step 1: Print the standard greeting message
+      - name: Print Standard Greeting
         run: echo "Hello, ${{ inputs.person-name }}! Nice to meet you!"
+
+      # Step 2: Check the greeting key and print a special message if it matches
+      - name: Check Greeting Key
+        run: |
+          if [ "${{ secrets.greeting-key }}" = "supersecret123" ]; then
+            echo "🎉 Special Greeting Unlocked! Welcome, ${{ inputs.person-name }}, you're a VIP!"
+          else
+            echo "Standard greeting only. Provide the correct key to unlock a special message."
+          fi
