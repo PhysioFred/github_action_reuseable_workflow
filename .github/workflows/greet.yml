@@ -4,7 +4,7 @@ name: Greet Someone
 on:
   push:
     branches:
-      - feature/initial_upload
+      - feature/greeting
       - main
 
 jobs:
