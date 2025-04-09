@@ -10,22 +10,22 @@ on:
     secrets:
       greeting-key:
         description: 'Secret key to unlock a special greeting'
-        required: true
+        required: false
 
 jobs:
   greet:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Print the standard greeting message
       - name: Print Standard Greeting
         run: echo "Hello, ${{ inputs.person-name }}! Nice to meet you!"
 
-      # Step 2: Check the greeting key and print a special message if it matches
       - name: Check Greeting Key
         run: |
-          if [ "${{ secrets.greeting-key }}" = "supersecret123" ]; then
+          if [ -z "${{ secrets.greeting-key }}" ]; then
+            echo "No greeting key provided. Standard greeting only."
+          elif [ "${{ secrets.greeting-key }}" = "supersecret123" ]; then
             echo "🎉 Special Greeting Unlocked! Welcome, ${{ inputs.person-name }}, you're a VIP!"
           else
-            echo "Standard greeting only. Provide the correct key to unlock a special message."
+            echo "Invalid greeting key. Standard greeting only."
           fi

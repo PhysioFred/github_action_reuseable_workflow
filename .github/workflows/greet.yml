@@ -8,8 +8,12 @@ on:
 
 jobs:
   call-greet:
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/feature/greeting'
+    strategy:
+      matrix:
+        person-name: [Fred, Alice, Bob]  # List of names to loop over
     uses: ./.github/workflows/reusable-greet.yml
     with:
-      person-name: Fred
+      person-name: ${{ matrix.person-name }}
     secrets:
       greeting-key: ${{ secrets.GREETING_KEY }}
